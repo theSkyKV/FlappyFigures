@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Project.Services.PauseSystems;
-using UnityEngine;
 
 namespace Project.Services.PauseSystems
 {
-    public class DefaultPauseSystem : IPauseSystem
-    {
+	public class DefaultPauseSystem : IPauseSystem
+	{
 		private readonly List<IPauseHandler> _handlers = new List<IPauseHandler>();
 
 		public bool IsPaused { get; private set; }
@@ -29,5 +26,5 @@ namespace Project.Services.PauseSystems
 				handler.SetPause(isPaused);
 			}
 		}
-    }
+	}
 }
