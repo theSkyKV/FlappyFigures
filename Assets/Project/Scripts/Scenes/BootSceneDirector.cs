@@ -1,6 +1,7 @@
+using Project.UI.Boot;
 using UnityEngine;
 
-namespace Project.UI.Boot
+namespace Project.Scenes
 {
 	public class BootSceneDirector : MonoBehaviour
 	{

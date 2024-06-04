@@ -1,6 +1,7 @@
+using Project.UI.MainMenu;
 using UnityEngine;
 
-namespace Project.UI.MainMenu
+namespace Project.Scenes
 {
 	public class MainMenuSceneDirector : MonoBehaviour
 	{
