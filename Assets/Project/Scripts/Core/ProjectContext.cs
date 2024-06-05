@@ -15,6 +15,8 @@ namespace Project.Core
 			DontDestroyOnLoad(this);
 
 			Service = new Service();
+			Service.AudioSettings.UpdateMusicVolume(0.5f);
+			Service.AudioSettings.UpdateSoundVolume(0.5f);
 		}
 	}
 }

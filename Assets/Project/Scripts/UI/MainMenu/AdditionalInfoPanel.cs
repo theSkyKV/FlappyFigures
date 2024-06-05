@@ -10,6 +10,14 @@ namespace Project.UI.MainMenu
 		private MainAdditionalPanel _mainAdditionalPanel;
 
 		[SerializeField]
+		private SettingsPanel _settingsPanel;
+
+		[SerializeField]
+		private AchievementsPanel _achievementsPanel;
+
+		[SerializeField]
+		private LeaderboardPanel _leaderboardPanel;
+
 		private List<OtherAdditionalPanel> _otherPanels;
 
 		private AdditionalPanelBase _activePanel;
@@ -18,6 +26,8 @@ namespace Project.UI.MainMenu
 		{
 			_mainAdditionalPanel.Activate();
 			_activePanel = _mainAdditionalPanel;
+
+			_otherPanels = new List<OtherAdditionalPanel> {_settingsPanel, _achievementsPanel, _leaderboardPanel};
 			foreach (var panel in _otherPanels)
 			{
 				panel.CloseButtonClicked += OnCloseButtonClicked;
