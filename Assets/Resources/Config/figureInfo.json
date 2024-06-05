@@ -1,0 +1,35 @@
+﻿[
+	{
+		"Id": 1001,
+		"StringId": "Square",
+		"Name": "Square",
+		"Description": "Square",
+		"Type": "Square",
+		"Mass": 1,
+		"GravityScale": 1,
+		"LifeCount": 2,
+		"SpritePath": "Sprites/Figures/Square"
+	},
+	{
+		"Id": 1002,
+		"StringId": "Triangle",
+		"Name": "Triangle",
+		"Description": "Triangle",
+		"Type": "Triangle",
+		"Mass": 0.7,
+		"GravityScale": 1,
+		"LifeCount": 2,
+		"SpritePath": "Sprites/Figures/Triangle"
+	},
+	{
+		"Id": 1003,
+		"StringId": "Circle",
+		"Name": "Circle",
+		"Description": "Circle",
+		"Type": "Circle",
+		"Mass": 1,
+		"GravityScale": -1,
+		"LifeCount": 2,
+		"SpritePath": "Sprites/Figures/Circle"
+	}
+]

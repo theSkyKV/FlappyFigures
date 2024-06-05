@@ -22,10 +22,14 @@ namespace Project.UI.MainMenu
 
 		private AdditionalPanelBase _activePanel;
 
+		public void Init()
+		{
+			_mainAdditionalPanel.Init();
+		}
+
 		private void OnEnable()
 		{
-			_mainAdditionalPanel.Activate();
-			_activePanel = _mainAdditionalPanel;
+			ChangeActivePanel(_mainAdditionalPanel);
 
 			_otherPanels = new List<OtherAdditionalPanel> {_settingsPanel, _achievementsPanel, _leaderboardPanel};
 			foreach (var panel in _otherPanels)

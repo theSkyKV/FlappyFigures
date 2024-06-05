@@ -11,6 +11,11 @@ namespace Project.UI.MainMenu
 		[SerializeField]
 		private AdditionalInfoPanel _additionalInfoPanel;
 
+		public void Init()
+		{
+			_additionalInfoPanel.Init();
+		}
+
 		private void OnEnable()
 		{
 			_buttonsPanel.MainMenuButtonClicked += OnMainMenuButtonClicked;

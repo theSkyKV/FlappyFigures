@@ -10,5 +10,11 @@
 		"Pattern": "PersistentDataPath",
 		"Value": "saveData",
 		"Extension": "dat"
+	},
+	{
+		"Key": "FigureInfo",
+		"Pattern": "Resources",
+		"Value": "Config/figureInfo",
+		"Extension": "json"
 	}
 ]

@@ -14,6 +14,8 @@ namespace Project.Scenes
 
 		private void Awake()
 		{
+			_mainMenuPanel.Init();
+
 			ProjectContext.Instance.Service.AudioSettings.MusicVolumeUpdated += UpdateMusicVolume;
 			UpdateMusicVolume(ProjectContext.Instance.Service.AudioSettings.MusicVolume);
 		}
