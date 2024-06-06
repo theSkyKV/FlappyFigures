@@ -1,3 +1,4 @@
+using System;
 using Project.UI.Buttons;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Project.UI.MainMenu
 		[SerializeField]
 		private AdditionalInfoPanel _additionalInfoPanel;
 
+		public event Action StartButtonClicked;
+		public event Action QuitButtonClicked;
+
 		public void Init()
 		{
 			_additionalInfoPanel.Init();
@@ -19,16 +23,30 @@ namespace Project.UI.MainMenu
 		private void OnEnable()
 		{
 			_buttonsPanel.MainMenuButtonClicked += OnMainMenuButtonClicked;
+			_buttonsPanel.StartButtonClicked += OnStartButtonClicked;
+			_buttonsPanel.QuitButtonClicked += OnQuitButtonClicked;
 		}
 
 		private void OnDisable()
 		{
 			_buttonsPanel.MainMenuButtonClicked -= OnMainMenuButtonClicked;
+			_buttonsPanel.StartButtonClicked -= OnStartButtonClicked;
+			_buttonsPanel.QuitButtonClicked -= OnQuitButtonClicked;
 		}
 
 		private void OnMainMenuButtonClicked(MainMenuButton button)
 		{
 			_additionalInfoPanel.ChangeActivePanel(button.ManagedPanel);
+		}
+
+		private void OnStartButtonClicked()
+		{
+			StartButtonClicked?.Invoke();
+		}
+
+		private void OnQuitButtonClicked()
+		{
+			QuitButtonClicked?.Invoke();
 		}
 	}
 }

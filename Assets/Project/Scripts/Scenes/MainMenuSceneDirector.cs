@@ -1,6 +1,7 @@
 using Project.Core;
 using Project.UI.MainMenu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Project.Scenes
 {
@@ -15,6 +16,8 @@ namespace Project.Scenes
 		private void Awake()
 		{
 			_mainMenuPanel.Init();
+			_mainMenuPanel.StartButtonClicked += OnStartButtonClicked;
+			_mainMenuPanel.QuitButtonClicked += OnQuitButtonClicked;
 
 			ProjectContext.Instance.Service.AudioSettings.MusicVolumeUpdated += UpdateMusicVolume;
 			UpdateMusicVolume(ProjectContext.Instance.Service.AudioSettings.MusicVolume);
@@ -22,6 +25,8 @@ namespace Project.Scenes
 
 		private void OnDestroy()
 		{
+			_mainMenuPanel.StartButtonClicked -= OnStartButtonClicked;
+			_mainMenuPanel.QuitButtonClicked -= OnQuitButtonClicked;
 			ProjectContext.Instance.Service.AudioSettings.MusicVolumeUpdated -= UpdateMusicVolume;
 		}
 
@@ -29,5 +34,13 @@ namespace Project.Scenes
 		{
 			_audioSource.volume = value;
 		}
+
+		private void OnStartButtonClicked()
+		{
+			SceneManager.LoadScene(2);
+		}
+
+		private void OnQuitButtonClicked()
+		{ }
 	}
 }

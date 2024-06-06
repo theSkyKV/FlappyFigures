@@ -23,6 +23,8 @@ namespace Project.UI.MainMenu
 		private Button _quitButton;
 
 		public event Action<MainMenuButton> MainMenuButtonClicked;
+		public event Action StartButtonClicked;
+		public event Action QuitButtonClicked;
 
 		private void OnEnable()
 		{
@@ -48,9 +50,13 @@ namespace Project.UI.MainMenu
 		}
 
 		private void OnStartButtonClicked()
-		{ }
+		{
+			StartButtonClicked?.Invoke();
+		}
 
 		private void OnQuitButtonClicked()
-		{ }
+		{
+			QuitButtonClicked?.Invoke();
+		}
 	}
 }
