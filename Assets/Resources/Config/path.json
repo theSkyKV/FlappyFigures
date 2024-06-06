@@ -16,5 +16,11 @@
 		"Pattern": "Resources",
 		"Value": "Config/figureInfo",
 		"Extension": "json"
+	},
+	{
+		"Key": "BaseSaveData",
+		"Pattern": "Resources",
+		"Value": "Config/baseSaveData",
+		"Extension": "json"
 	}
 ]

@@ -11,6 +11,7 @@ namespace Project.Services.Paths
 		public readonly string JsonSaveData;
 		public readonly string BinarySaveData;
 		public readonly string FigureInfo;
+		public readonly string BaseSaveData;
 
 		private readonly List<PathInfo> _paths;
 
@@ -31,6 +32,7 @@ namespace Project.Services.Paths
 			JsonSaveData = GetPath("JsonSaveData");
 			BinarySaveData = GetPath("BinarySaveData");
 			FigureInfo = GetPath("FigureInfo");
+			BaseSaveData = GetPath("BaseSaveData");
 		}
 
 		private string GetPath(string key)

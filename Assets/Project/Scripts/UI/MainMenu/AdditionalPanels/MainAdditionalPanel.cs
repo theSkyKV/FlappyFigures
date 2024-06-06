@@ -33,6 +33,9 @@ namespace Project.UI.MainMenu.AdditionalPanels
 		[SerializeField]
 		private TMP_Text _description;
 
+		[SerializeField]
+		private GameObject _lockPanel;
+
 		private LinkedList<FigureInfo> _figureInfos;
 		private LinkedListNode<FigureInfo> _current;
 
@@ -50,6 +53,7 @@ namespace Project.UI.MainMenu.AdditionalPanels
 		{
 			_leftButton.onClick.AddListener(OnLeftButtonClicked);
 			_rightButton.onClick.AddListener(OnRightButtonClicked);
+			_openNowButton.onClick.AddListener(OnOpenNowButtonClicked);
 			UpdateInfo();
 			base.Activate();
 		}
@@ -58,6 +62,7 @@ namespace Project.UI.MainMenu.AdditionalPanels
 		{
 			_leftButton.onClick.RemoveListener(OnLeftButtonClicked);
 			_rightButton.onClick.RemoveListener(OnRightButtonClicked);
+			_openNowButton.onClick.RemoveListener(OnOpenNowButtonClicked);
 			base.Deactivate();
 		}
 
@@ -70,10 +75,19 @@ namespace Project.UI.MainMenu.AdditionalPanels
 				return;
 			}
 
-			ProjectContext.Instance.UpdateFigure(_figureInfo.Type);
 			_icon.sprite = _figureInfo.Sprite;
 			_name.text = _figureInfo.Name;
 			_description.text = _figureInfo.Description;
+			_record.text = ProjectContext.Instance.Data.Records[_figureInfo.Type].ToString();
+			var isAvailable = ProjectContext.Instance.Data.Availabilities[_figureInfo.Type];
+
+			if (isAvailable)
+			{
+				ProjectContext.Instance.UpdateFigure(_figureInfo.Type);
+			}
+
+			_lockPanel.SetActive(!isAvailable);
+			_openNowButton.gameObject.SetActive(!isAvailable);
 		}
 
 		private void OnLeftButtonClicked()
@@ -89,5 +103,8 @@ namespace Project.UI.MainMenu.AdditionalPanels
 			UpdateInfo();
 			EventSystem.current.SetSelectedGameObject(null);
 		}
+
+		private void OnOpenNowButtonClicked()
+		{ }
 	}
 }

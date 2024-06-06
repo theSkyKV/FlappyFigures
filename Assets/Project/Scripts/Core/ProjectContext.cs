@@ -3,6 +3,7 @@ using System.Linq;
 using Project.Config.Loaders;
 using Project.Entities.Figures;
 using Project.Services;
+using Project.Services.SaveSystems;
 using UnityEngine;
 
 namespace Project.Core
@@ -15,7 +16,10 @@ namespace Project.Core
 
 		public FigureInfo Figure { get; private set; }
 
+		public SaveData Data { get; set; }
+
 		private FigureInfoLoader _figureInfoLoader;
+		private BaseSaveDataLoader _baseSaveDataLoader;
 
 		private List<FigureInfo> _figureInfos;
 		public IReadOnlyList<FigureInfo> FigureInfos => _figureInfos;
@@ -26,6 +30,10 @@ namespace Project.Core
 			DontDestroyOnLoad(this);
 
 			Service = new Service();
+
+			_baseSaveDataLoader = new BaseSaveDataLoader(Service.Path.BaseSaveData);
+
+			LoadData();
 			Service.AudioSettings.UpdateMusicVolume(0.5f);
 			Service.AudioSettings.UpdateSoundVolume(0.5f);
 
@@ -37,6 +45,11 @@ namespace Project.Core
 		public void UpdateFigure(FigureType type)
 		{
 			Figure = _figureInfos.FirstOrDefault(f => f.Type == type);
+		}
+
+		private void LoadData()
+		{
+			Data = Service.SaveSystem.Load() ?? _baseSaveDataLoader.Load();
 		}
 	}
 }
