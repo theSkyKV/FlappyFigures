@@ -34,8 +34,8 @@ namespace Project.Core
 			_baseSaveDataLoader = new BaseSaveDataLoader(Service.Path.BaseSaveData);
 
 			LoadData();
-			Service.AudioSettings.UpdateMusicVolume(0.5f);
-			Service.AudioSettings.UpdateSoundVolume(0.5f);
+			Service.AudioSettings.MusicVolume = Data.AudioSettings.MusicVolume;
+			Service.AudioSettings.SoundVolume = Data.AudioSettings.SoundVolume;
 
 			_figureInfoLoader = new FigureInfoLoader(Service.Path.FigureInfo);
 			_figureInfos = _figureInfoLoader.GetAll();

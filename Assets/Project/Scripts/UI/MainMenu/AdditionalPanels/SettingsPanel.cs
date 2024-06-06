@@ -34,12 +34,12 @@ namespace Project.UI.MainMenu.AdditionalPanels
 
 		private void OnMusicVolumeChanged(float value)
 		{
-			_audioSettings.UpdateMusicVolume(value);
+			_audioSettings.MusicVolume = value;
 		}
 
 		private void OnSoundVolumeChanged(float value)
 		{
-			_audioSettings.UpdateSoundVolume(value);
+			_audioSettings.SoundVolume = value;
 		}
 
 		private void UpdateMusicVolume(float value)
