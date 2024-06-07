@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +9,25 @@ namespace Project.UI.Boot
 		[SerializeField]
 		private Image _loadingImage;
 
-		public void UpdateLoadingValue(float value)
+		private Vector3 _rotation;
+		private const float RotationSpeed = -90;
+
+		public void Init()
 		{
-			_loadingImage.fillAmount = value;
+			_rotation = _loadingImage.transform.eulerAngles;
+			_rotation.z = RotationSpeed;
+			StartCoroutine(Animate());
+		}
+
+		private IEnumerator Animate()
+		{
+			var waiter = new WaitForEndOfFrame();
+
+			while (true)
+			{
+				_loadingImage.transform.Rotate(_rotation * Time.deltaTime);
+				yield return waiter;
+			}
 		}
 	}
 }

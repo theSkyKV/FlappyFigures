@@ -12,6 +12,7 @@ namespace Project.Services.Paths
 		public readonly string BinarySaveData;
 		public readonly string FigureInfo;
 		public readonly string BaseSaveData;
+		public readonly string GameSettings;
 
 		private readonly List<PathInfo> _paths;
 
@@ -33,6 +34,7 @@ namespace Project.Services.Paths
 			BinarySaveData = GetPath("BinarySaveData");
 			FigureInfo = GetPath("FigureInfo");
 			BaseSaveData = GetPath("BaseSaveData");
+			GameSettings = GetPath("GameSettings");
 		}
 
 		private string GetPath(string key)

@@ -22,5 +22,11 @@
 		"Pattern": "Resources",
 		"Value": "Config/baseSaveData",
 		"Extension": "json"
+	},
+	{
+		"Key": "GameSettings",
+		"Pattern": "Resources",
+		"Value": "Config/gameSettings",
+		"Extension": "json"
 	}
 ]

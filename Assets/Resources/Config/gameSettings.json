@@ -1,0 +1,12 @@
+﻿{
+	"BaseGameSpeed": 2.5,
+	"TerminalGameSpeed": 4.5,
+	"GameSpeedScaler": 300,
+	"ImmortalTimeAfterResurrection": 2,
+	"VerticalForce": 3,
+	"ObstacleSettings": {
+		"RelativeDistanceBetweenDeadZonesMin": 0.21,
+		"RelativeDistanceBetweenDeadZonesMax": 0.32,
+		"RelativePosition": 0.55
+	}
+}

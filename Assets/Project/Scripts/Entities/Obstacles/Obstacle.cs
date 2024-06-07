@@ -1,4 +1,5 @@
 using System;
+using Project.Core;
 using Project.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,10 +17,9 @@ namespace Project.Entities.Obstacles
 		[SerializeField]
 		private ScoreZone _scoreZone;
 
-		private const float RelativeDistanceBetweenDeadZonesMin = 0.21f;
-		private const float RelativeDistanceBetweenDeadZonesMax = 0.32f;
-		private const float RelativePosition = 0.55f;
-
+		private float _relativeDistanceBetweenDeadZonesMin;
+		private float _relativeDistanceBetweenDeadZonesMax;
+		private float _relativePosition;
 		private float _cameraHeightHalf;
 
 		public event Action ScoreZoneTriggered;
@@ -29,6 +29,11 @@ namespace Project.Entities.Obstacles
 		{
 			var mainCamera = Camera.main;
 			_cameraHeightHalf = mainCamera != null ? mainCamera.orthographicSize : 0;
+
+			var settings = ProjectContext.Instance.GameSettings.ObstacleSettings;
+			_relativeDistanceBetweenDeadZonesMin = settings.RelativeDistanceBetweenDeadZonesMin;
+			_relativeDistanceBetweenDeadZonesMax = settings.RelativeDistanceBetweenDeadZonesMax;
+			_relativePosition = settings.RelativePosition;
 
 			_scoreZone.Triggered += OnScoreZoneTriggered;
 			_deadZoneBottom.Triggered += OnDeadZoneTriggered;
@@ -84,8 +89,8 @@ namespace Project.Entities.Obstacles
 			var bottomTransform = _deadZoneBottom.transform;
 			var position = GetRandomPosition();
 			var offset = Random.Range(
-				_cameraHeightHalf * RelativeDistanceBetweenDeadZonesMin,
-				_cameraHeightHalf * RelativeDistanceBetweenDeadZonesMax);
+				_cameraHeightHalf * _relativeDistanceBetweenDeadZonesMin,
+				_cameraHeightHalf * _relativeDistanceBetweenDeadZonesMax);
 			topTransform.position =
 				new Vector3(position.x, position.y + _cameraHeightHalf + offset);
 			bottomTransform.position =
@@ -97,8 +102,8 @@ namespace Project.Entities.Obstacles
 
 		private Vector3 GetRandomPosition()
 		{
-			var offset = Random.Range(-_cameraHeightHalf * RelativePosition,
-				_cameraHeightHalf * RelativePosition);
+			var offset = Random.Range(-_cameraHeightHalf * _relativePosition,
+				_cameraHeightHalf * _relativePosition);
 			var position = transform.position;
 			position = new Vector3(position.x, position.y + offset);
 

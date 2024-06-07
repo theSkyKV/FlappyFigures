@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Project.Core;
 using Project.UI.Boot;
 using UnityEngine;
@@ -13,13 +14,13 @@ namespace Project.Scenes
 		[SerializeField]
 		private BootPanel _bootPanel;
 
-		private void Awake()
+		private async void Awake()
 		{
-			_bootPanel.UpdateLoadingValue(0);
+			_bootPanel.Init();
+			await Task.Delay(500);
 			Load();
-			_bootPanel.UpdateLoadingValue(0.5f);
-			SceneManager.LoadScene(1);
-			_bootPanel.UpdateLoadingValue(1);
+			await Task.Delay(500);
+			SceneManager.LoadSceneAsync(1);
 		}
 
 		private void Load()
