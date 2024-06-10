@@ -1,0 +1,32 @@
+﻿[
+	{
+		"Key": "JsonSaveData",
+		"Pattern": "PersistentDataPath",
+		"Value": "saveData",
+		"Extension": "json"
+	},
+	{
+		"Key": "BinarySaveData",
+		"Pattern": "PersistentDataPath",
+		"Value": "saveData",
+		"Extension": "dat"
+	},
+	{
+		"Key": "FigureInfo",
+		"Pattern": "Resources",
+		"Value": "Config/figureInfo",
+		"Extension": "json"
+	},
+	{
+		"Key": "BaseSaveData",
+		"Pattern": "Resources",
+		"Value": "Config/baseSaveData",
+		"Extension": "json"
+	},
+	{
+		"Key": "GameSettings",
+		"Pattern": "Resources",
+		"Value": "Config/gameSettings",
+		"Extension": "json"
+	}
+]

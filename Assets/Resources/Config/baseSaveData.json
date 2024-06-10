@@ -1,0 +1,16 @@
+﻿{
+	"Records": {
+		"Square": 0,
+		"Triangle": 0,
+		"Circle": 0
+	},
+	"Availabilities": {
+		"Square": true,
+		"Triangle": false,
+		"Circle": false
+	},
+	"AudioSettings": {
+		"MusicVolume": 0.5,
+		"SoundVolume": 0.5
+	}
+}
