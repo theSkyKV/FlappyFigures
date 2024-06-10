@@ -1,13 +1,19 @@
+using Project.Core;
+using Project.Services.PauseSystems;
 using UnityEngine;
 
 namespace Project.Entities.Figures
 {
-	public class Figure : MonoBehaviour
+	public class Figure : MonoBehaviour, IPauseHandler
 	{
 		private Rigidbody2D _rigidbody;
+		private Collider2D _collider;
+
+		private IPauseSystem PauseSystem => ProjectContext.Instance.Service.PauseSystem;
 
 		public void Init(FigureInfo info)
 		{
+			PauseSystem.Register(this);
 			_rigidbody = gameObject.AddComponent<Rigidbody2D>();
 			Deactivate();
 			_rigidbody.mass = info.Mass;
@@ -17,7 +23,9 @@ namespace Project.Entities.Figures
 		}
 
 		private void OnDestroy()
-		{ }
+		{
+			PauseSystem.UnRegister(this);
+		}
 
 		public void Activate()
 		{
@@ -39,10 +47,11 @@ namespace Project.Entities.Figures
 			switch (type)
 			{
 				case FigureType.Square:
-					gameObject.AddComponent<BoxCollider2D>();
+					_collider = gameObject.AddComponent<BoxCollider2D>();
 					break;
 				case FigureType.Triangle:
 					var col = gameObject.AddComponent<PolygonCollider2D>();
+					_collider = col;
 					col.points = new[]
 					{
 						new Vector2(0, 0.5773587f),
@@ -51,7 +60,7 @@ namespace Project.Entities.Figures
 					};
 					break;
 				case FigureType.Circle:
-					gameObject.AddComponent<CircleCollider2D>();
+					_collider = gameObject.AddComponent<CircleCollider2D>();
 					break;
 			}
 		}
@@ -77,6 +86,28 @@ namespace Project.Entities.Figures
 			}
 
 			sr.transform.position = offset;
+		}
+
+		public void SetPause(bool isPaused)
+		{
+			if (isPaused)
+			{
+				Deactivate();
+			}
+			else
+			{
+				Activate();
+			}
+		}
+
+		public void SetImmortal(bool isImmortal)
+		{
+			_collider.enabled = !isImmortal;
+		}
+
+		public void ResetFigure()
+		{
+			_rigidbody.velocity = Vector2.zero;
 		}
 	}
 }

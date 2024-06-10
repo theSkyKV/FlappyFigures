@@ -16,9 +16,9 @@
 		"Name": "Triangle",
 		"Description": "Triangle",
 		"Type": "Triangle",
-		"Mass": 0.7,
+		"Mass": 1,
 		"GravityScale": 1,
-		"LifeCount": 2,
+		"LifeCount": 3,
 		"SpritePath": "Sprites/Figures/Triangle"
 	},
 	{

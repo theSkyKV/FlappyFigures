@@ -1,12 +1,13 @@
 using System;
 using Project.Core;
 using Project.Entities.Figures;
+using Project.Services.PauseSystems;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Project.Inputs
 {
-	public class PlayerInputController : MonoBehaviour
+	public class PlayerInputController : MonoBehaviour, IPauseHandler
 	{
 		private PlayerInput _playerInput;
 		private Figure _figure;
@@ -15,8 +16,11 @@ namespace Project.Inputs
 
 		public event Action FirstTimeClicked;
 
+		private IPauseSystem PauseSystem => ProjectContext.Instance.Service.PauseSystem;
+
 		public void Init(Figure figure)
 		{
+			PauseSystem.Register(this);
 			var settings = ProjectContext.Instance.GameSettings;
 			_playerInput = new PlayerInput();
 			_figure = figure;
@@ -27,6 +31,7 @@ namespace Project.Inputs
 
 		private void OnDestroy()
 		{
+			PauseSystem.UnRegister(this);
 			_playerInput.Disable();
 			_playerInput.Figure.AddForce.performed -= OnAddedForce;
 		}
@@ -42,6 +47,18 @@ namespace Project.Inputs
 			FirstTimeClicked?.Invoke();
 			_playerInput.Figure.AddForce.performed += OnAddedForce;
 			_playerInput.Figure.AddForce.performed -= OnFirstTimeClicked;
+		}
+
+		public void SetPause(bool isPaused)
+		{
+			if (isPaused)
+			{
+				_playerInput.Disable();
+			}
+			else
+			{
+				_playerInput.Enable();
+			}
 		}
 	}
 }

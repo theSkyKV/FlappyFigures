@@ -58,5 +58,11 @@ namespace Project.Core
 		{
 			Data = Service.SaveSystem.Load() ?? _baseSaveDataLoader.Load();
 		}
+
+		private void OnApplicationQuit()
+		{
+			Data.AudioSettings = Service.AudioSettings;
+			Service.SaveSystem.Save(Data);
+		}
 	}
 }
