@@ -2,8 +2,8 @@
 	{
 		"Id": 1001,
 		"StringId": "Square",
-		"Name": "Square",
-		"Description": "Square",
+		"Name": "Квадрат",
+		"Description": "Обычные характеристики и одно воскрешение после поражения.",
 		"Type": "Square",
 		"Mass": 1,
 		"GravityScale": 1,
@@ -13,8 +13,8 @@
 	{
 		"Id": 1002,
 		"StringId": "Triangle",
-		"Name": "Triangle",
-		"Description": "Triangle",
+		"Name": "Треугольник",
+		"Description": "Возможность воскреснуть 1 дополнительный раз.",
 		"Type": "Triangle",
 		"Mass": 1,
 		"GravityScale": 1,
@@ -24,8 +24,8 @@
 	{
 		"Id": 1003,
 		"StringId": "Circle",
-		"Name": "Circle",
-		"Description": "Circle",
+		"Name": "Круг",
+		"Description": "Обратная гравитация и одно воскрешение после поражения.",
 		"Type": "Circle",
 		"Mass": 1,
 		"GravityScale": -1,

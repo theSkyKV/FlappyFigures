@@ -54,7 +54,7 @@ namespace Project.Core
 			Figure = _figureInfos.FirstOrDefault(f => f.Type == type);
 		}
 
-		private void LoadData()
+		public void LoadData()
 		{
 			Data = Service.SaveSystem.Load() ?? _baseSaveDataLoader.Load();
 		}

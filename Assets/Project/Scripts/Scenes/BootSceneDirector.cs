@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using Project.Core;
+using Project.Services.AudioSettings;
 using Project.UI.Boot;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,18 +14,15 @@ namespace Project.Scenes
 		[SerializeField]
 		private BootPanel _bootPanel;
 
-		private async void Awake()
+		[SerializeField]
+		private AudioController _audioController;
+
+		private void Start()
 		{
 			_bootPanel.Init();
-			await Task.Delay(500);
-			Load();
-			await Task.Delay(500);
-			SceneManager.LoadSceneAsync(1);
-		}
-
-		private void Load()
-		{
 			_projectContext.Init();
+			_audioController.Init();
+			SceneManager.LoadSceneAsync(1);
 		}
 	}
 }

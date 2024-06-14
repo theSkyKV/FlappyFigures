@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Project.Core;
 using Project.Entities.Figures;
 using Project.Entities.Obstacles;
@@ -8,6 +9,7 @@ using Project.Inputs;
 using Project.Services.PauseSystems;
 using Project.UI.Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Project.Scenes
@@ -44,6 +46,9 @@ namespace Project.Scenes
 		private float _immortalTimerStart;
 
 		private IPauseSystem PauseSystem => ProjectContext.Instance.Service.PauseSystem;
+
+		[DllImport("__Internal")]
+		private static extern void ShowResurrectAdvExtern();
 
 		private void Awake()
 		{
@@ -184,7 +189,28 @@ namespace Project.Scenes
 			SceneManager.LoadScene(2);
 		}
 
+		private float _musicVolume;
+
 		private void OnResurrectButtonClicked()
+		{
+			_musicVolume = ProjectContext.Instance.Service.AudioSettings.MusicVolume;
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = 0;
+			EventSystem.current.SetSelectedGameObject(null);
+			ShowResurrectAdvExtern();
+		}
+
+		public void OnAdvClosedOrFailed()
+		{
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = _musicVolume;
+		}
+
+		public void OnRewardReceived()
+		{
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = _musicVolume;
+			Resurrect();
+		}
+
+		private void Resurrect()
 		{
 			_resurrectionNumber--;
 			_figure.transform.position = _playerSpawnPoint.position;

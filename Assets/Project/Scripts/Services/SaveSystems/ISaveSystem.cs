@@ -4,5 +4,6 @@ namespace Project.Services.SaveSystems
 	{
 		void Save(SaveData data);
 		SaveData Load();
+		void Reset();
 	}
 }

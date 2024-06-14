@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Core;
@@ -41,6 +42,8 @@ namespace Project.UI.MainMenu.AdditionalPanels
 
 		private FigureInfo _figureInfo;
 
+		public event Action<FigureType> OpenNowButtonClicked;
+
 		public void Init()
 		{
 			_figureInfos = ProjectContext.Instance.FigureInfos.ToLinkedList();
@@ -66,7 +69,7 @@ namespace Project.UI.MainMenu.AdditionalPanels
 			base.Deactivate();
 		}
 
-		private void UpdateInfo()
+		public void UpdateInfo()
 		{
 			_figureInfo = _current?.Value;
 
@@ -105,6 +108,8 @@ namespace Project.UI.MainMenu.AdditionalPanels
 		}
 
 		private void OnOpenNowButtonClicked()
-		{ }
+		{
+			OpenNowButtonClicked?.Invoke(_figureInfo.Type);
+		}
 	}
 }

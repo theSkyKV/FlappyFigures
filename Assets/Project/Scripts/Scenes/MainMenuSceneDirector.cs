@@ -1,6 +1,9 @@
+using System.Runtime.InteropServices;
 using Project.Core;
+using Project.Entities.Figures;
 using Project.UI.MainMenu;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace Project.Scenes
@@ -10,29 +13,25 @@ namespace Project.Scenes
 		[SerializeField]
 		private MainMenuPanel _mainMenuPanel;
 
-		[SerializeField]
-		private AudioSource _audioSource;
+		private float _musicVolume;
+		private FigureType _figureType;
+
+		[DllImport("__Internal")]
+		private static extern void ShowFigureOpenAdvExtern();
 
 		private void Awake()
 		{
 			_mainMenuPanel.Init();
 			_mainMenuPanel.StartButtonClicked += OnStartButtonClicked;
 			_mainMenuPanel.QuitButtonClicked += OnQuitButtonClicked;
-
-			ProjectContext.Instance.Service.AudioSettings.MusicVolumeUpdated += UpdateMusicVolume;
-			UpdateMusicVolume(ProjectContext.Instance.Service.AudioSettings.MusicVolume);
+			_mainMenuPanel.OpenNowButtonClicked += OnOpenNowButtonClicked;
 		}
 
 		private void OnDestroy()
 		{
 			_mainMenuPanel.StartButtonClicked -= OnStartButtonClicked;
 			_mainMenuPanel.QuitButtonClicked -= OnQuitButtonClicked;
-			ProjectContext.Instance.Service.AudioSettings.MusicVolumeUpdated -= UpdateMusicVolume;
-		}
-
-		private void UpdateMusicVolume(float value)
-		{
-			_audioSource.volume = value;
+			_mainMenuPanel.OpenNowButtonClicked -= OnOpenNowButtonClicked;
 		}
 
 		private void OnStartButtonClicked()
@@ -42,5 +41,27 @@ namespace Project.Scenes
 
 		private void OnQuitButtonClicked()
 		{ }
+
+		private void OnOpenNowButtonClicked(FigureType type)
+		{
+			_figureType = type;
+			_musicVolume = ProjectContext.Instance.Service.AudioSettings.MusicVolume;
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = 0;
+			EventSystem.current.SetSelectedGameObject(null);
+			ShowFigureOpenAdvExtern();
+		}
+
+		public void OnAdvClosedOrFailed()
+		{
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = _musicVolume;
+		}
+
+		public void OnRewardReceived()
+		{
+			ProjectContext.Instance.Service.AudioSettings.MusicVolume = _musicVolume;
+			ProjectContext.Instance.Data.Availabilities[_figureType] = true;
+			ProjectContext.Instance.Service.SaveSystem.Save(ProjectContext.Instance.Data);
+			_mainMenuPanel.UpdateFigureInfo();
+		}
 	}
 }

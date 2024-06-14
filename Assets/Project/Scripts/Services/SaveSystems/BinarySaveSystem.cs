@@ -49,5 +49,15 @@ namespace Project.Services.SaveSystems
 
 			return data;
 		}
+
+		public void Reset()
+		{
+			if (!File.Exists(_path))
+			{
+				return;
+			}
+
+			File.Delete(_path);
+		}
 	}
 }

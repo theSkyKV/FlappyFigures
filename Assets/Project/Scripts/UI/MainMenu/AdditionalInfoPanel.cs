@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Project.Entities.Figures;
 using Project.UI.MainMenu.AdditionalPanels;
 using UnityEngine;
 
@@ -22,6 +24,8 @@ namespace Project.UI.MainMenu
 
 		private AdditionalPanelBase _activePanel;
 
+		public event Action<FigureType> OpenNowButtonClicked;
+
 		public void Init()
 		{
 			_mainAdditionalPanel.Init();
@@ -30,6 +34,7 @@ namespace Project.UI.MainMenu
 		private void OnEnable()
 		{
 			ChangeActivePanel(_mainAdditionalPanel);
+			_mainAdditionalPanel.OpenNowButtonClicked += OnOpenNowButtonClicked;
 
 			_otherPanels = new List<OtherAdditionalPanel> {_settingsPanel, _achievementsPanel, _leaderboardPanel};
 			foreach (var panel in _otherPanels)
@@ -41,6 +46,7 @@ namespace Project.UI.MainMenu
 
 		private void OnDisable()
 		{
+			_mainAdditionalPanel.OpenNowButtonClicked -= OnOpenNowButtonClicked;
 			foreach (var panel in _otherPanels)
 			{
 				panel.CloseButtonClicked -= OnCloseButtonClicked;
@@ -66,6 +72,16 @@ namespace Project.UI.MainMenu
 
 			_activePanel = panel;
 			_activePanel.Activate();
+		}
+
+		private void OnOpenNowButtonClicked(FigureType type)
+		{
+			OpenNowButtonClicked?.Invoke(type);
+		}
+
+		public void UpdateFigureInfo()
+		{
+			_mainAdditionalPanel.UpdateInfo();
 		}
 	}
 }
