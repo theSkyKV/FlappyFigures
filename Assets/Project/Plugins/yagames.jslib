@@ -49,7 +49,9 @@
 	SaveExtern: function (data) {
 		var dataString = UTF8ToString(data);
 		var json = JSON.parse(dataString);
-		player.setData(json);
+		player.setData(json).then(() => {
+			console.log('data is set');
+		});
 	},
 	
 	LoadExtern: function () {
@@ -66,15 +68,11 @@
 		}
 
 		player.getData().then(_data => {
-			if (_data === null)
-			{
-				console.log('data is NULL');
-				gameInstance.SendMessage('ProjectContext', 'FirstTimeInitDataFromYandex');
-				return null;
-			}
 			const json = JSON.stringify(_data);
+			console.log('data is get');
+			console.log(_data);
+			console.log(json);
 			gameInstance.SendMessage('ProjectContext', 'SetDataFromYandex', json);
-			console.log('data is set');
 		});
 	},
 

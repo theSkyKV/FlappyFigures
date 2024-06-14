@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using Project.Core;
 using UnityEngine;
 
 namespace Project.Services.SaveSystems
@@ -34,6 +35,9 @@ namespace Project.Services.SaveSystems
 		}
 
 		public void Reset()
-		{ }
+		{
+			ProjectContext.Instance.Data = null;
+			SaveExtern("{}");
+		}
 	}
 }

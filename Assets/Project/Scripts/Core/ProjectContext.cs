@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Project.Config.Entities;
 using Project.Config.Loaders;
 using Project.Entities.Figures;
@@ -28,8 +30,15 @@ namespace Project.Core
 		private List<FigureInfo> _figureInfos;
 		public IReadOnlyList<FigureInfo> FigureInfos => _figureInfos;
 
+		private bool _playerInfoLoaded;
+		private bool _additionalInfoLoaded;
+
+		public event Action AllDataLoaded;
+
 		public void Init()
 		{
+			_playerInfoLoaded = false;
+			_additionalInfoLoaded = false;
 			Instance = this;
 			DontDestroyOnLoad(this);
 
@@ -37,9 +46,7 @@ namespace Project.Core
 
 			_baseSaveDataLoader = new BaseSaveDataLoader(Service.Path.BaseSaveData);
 
-			LoadData();
-			Service.AudioSettings.MusicVolume = Data.AudioSettings.MusicVolume;
-			Service.AudioSettings.SoundVolume = Data.AudioSettings.SoundVolume;
+			LoadData(true);
 
 			_figureInfoLoader = new FigureInfoLoader(Service.Path.FigureInfo);
 			_figureInfos = _figureInfoLoader.GetAll();
@@ -47,6 +54,8 @@ namespace Project.Core
 
 			_gameSettingsLoader = new GameSettingsLoader(Service.Path.GameSettings);
 			GameSettings = _gameSettingsLoader.Get();
+			_additionalInfoLoaded = true;
+			OnDataLoaded();
 		}
 
 		public void UpdateFigure(FigureType type)
@@ -54,9 +63,41 @@ namespace Project.Core
 			Figure = _figureInfos.FirstOrDefault(f => f.Type == type);
 		}
 
-		public void LoadData()
+		public void LoadData(bool fromYandex = false)
 		{
-			Data = Service.SaveSystem.Load() ?? _baseSaveDataLoader.Load();
+			if (fromYandex)
+			{
+				Service.SaveSystem.Load();
+			}
+			else
+			{
+				Data = Service.SaveSystem.Load() ?? _baseSaveDataLoader.Load();
+			}
+		}
+
+		public void SetDataFromYandex(string json)
+		{
+			if (string.IsNullOrWhiteSpace(json) || json == "{}")
+			{
+				Data = _baseSaveDataLoader.Load();
+			}
+			else
+			{
+				Data = JsonConvert.DeserializeObject<SaveData>(json) ?? _baseSaveDataLoader.Load();
+			}
+			
+			Service.AudioSettings.MusicVolume = Data.AudioSettings.MusicVolume;
+			Service.AudioSettings.SoundVolume = Data.AudioSettings.SoundVolume;
+			_playerInfoLoaded = true;
+			OnDataLoaded();
+		}
+
+		private void OnDataLoaded()
+		{
+			if (_playerInfoLoaded && _additionalInfoLoaded)
+			{
+				AllDataLoaded?.Invoke();
+			}
 		}
 
 		private void OnApplicationQuit()

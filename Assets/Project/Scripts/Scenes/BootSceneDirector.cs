@@ -19,9 +19,19 @@ namespace Project.Scenes
 
 		private void Start()
 		{
+			_projectContext.AllDataLoaded += OnAllDataLoaded;
 			_bootPanel.Init();
 			_projectContext.Init();
 			_audioController.Init();
+		}
+
+		private void OnDestroy()
+		{
+			_projectContext.AllDataLoaded -= OnAllDataLoaded;
+		}
+
+		private void OnAllDataLoaded()
+		{
 			SceneManager.LoadSceneAsync(1);
 		}
 	}

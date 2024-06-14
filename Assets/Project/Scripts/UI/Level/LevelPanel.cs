@@ -22,6 +22,9 @@ namespace Project.UI.Level
 
 		[SerializeField]
 		private TMP_Text _infoText;
+		
+		[SerializeField]
+		private GameObject _infoPanel;
 
 		public event Action ContinueButtonClicked;
 		public event Action MainMenuButtonClicked;
@@ -37,7 +40,7 @@ namespace Project.UI.Level
 			_gameOverPanel.RestartButtonClicked += OnRestartButtonClicked;
 			_gameOverPanel.MainMenuButtonClicked += OnMainMenuButtonClicked;
 			_gameOverPanel.ResurrectButtonClicked += OnResurrectButtonClicked;
-			_infoText.gameObject.SetActive(true);
+			_infoPanel.SetActive(true);
 			DeactivatePause();
 			DeactivateGameOver();
 		}
@@ -131,7 +134,7 @@ namespace Project.UI.Level
 				yield return waiter;
 			}
 
-			_infoText.gameObject.SetActive(false);
+			_infoPanel.SetActive(false);
 		}
 	}
 }

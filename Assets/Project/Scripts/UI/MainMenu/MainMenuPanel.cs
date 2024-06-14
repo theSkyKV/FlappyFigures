@@ -63,7 +63,7 @@ namespace Project.UI.MainMenu
 		private void OnResetDataButtonClicked()
 		{
 			ProjectContext.Instance.Service.SaveSystem.Reset();
-			ProjectContext.Instance.LoadData();
+			//ProjectContext.Instance.LoadData();
 		}
 
 		private void OnOpenNowButtonClicked(FigureType type)

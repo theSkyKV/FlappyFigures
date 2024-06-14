@@ -14,7 +14,7 @@ namespace Project.Services
 		public Service()
 		{
 			Path = new Path();
-			SaveSystem = new JsonSaveSystem(Path.JsonSaveData);
+			SaveSystem = new YandexGamesSaveSystem();
 			PauseSystem = new DefaultPauseSystem();
 			AudioSettings = new AudioSettings.AudioSettings();
 		}
