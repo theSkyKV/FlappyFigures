@@ -36,6 +36,8 @@ namespace Project.Scenes
 
 		private void OnStartButtonClicked()
 		{
+			ProjectContext.Instance.Data.AudioSettings = ProjectContext.Instance.Service.AudioSettings;
+			ProjectContext.Instance.Service.SaveSystem.Save(ProjectContext.Instance.Data);
 			SceneManager.LoadScene(2);
 		}
 

@@ -70,8 +70,6 @@
 		player.getData().then(_data => {
 			const json = JSON.stringify(_data);
 			console.log('data is get');
-			console.log(_data);
-			console.log(json);
 			gameInstance.SendMessage('ProjectContext', 'SetDataFromYandex', json);
 		});
 	},
