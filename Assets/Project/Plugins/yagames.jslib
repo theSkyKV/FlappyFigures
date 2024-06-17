@@ -73,5 +73,12 @@
 			gameInstance.SendMessage('ProjectContext', 'SetDataFromYandex', json);
 		});
 	},
+	
+	SetToLeaderboardExtern: function (value) {
+		ysdk.getLeaderboards()
+			.then(lb => {
+				lb.setLeaderboardScore('BestResult', value);
+			});
+	}
 
 });

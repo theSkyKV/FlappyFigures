@@ -49,6 +49,9 @@ namespace Project.Scenes
 
 		[DllImport("__Internal")]
 		private static extern void ShowResurrectAdvExtern();
+		
+		[DllImport("__Internal")]
+		private static extern void SetToLeaderboardExtern(int value);
 
 		private void Awake()
 		{
@@ -259,6 +262,7 @@ namespace Project.Scenes
 			if (_score > saveData.BestResult)
 			{
 				saveData.BestResult = _score;
+				SetToLeaderboardExtern(_score);
 			}
 			
 			ProjectContext.Instance.Service.SaveSystem.Save(saveData);
