@@ -8,5 +8,6 @@ namespace Project.Services.SaveSystems
 		public Dictionary<FigureType, int> Records { get; set; }
 		public Dictionary<FigureType, bool> Availabilities { get; set; }
 		public AudioSettings.AudioSettings AudioSettings { get; set; }
+		public int BestResult { get; set; }
 	}
 }

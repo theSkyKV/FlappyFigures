@@ -12,5 +12,6 @@
 	"AudioSettings": {
 		"MusicVolume": 0.5,
 		"SoundVolume": 0.5
-	}
+	},
+	"BestResult": 0
 }

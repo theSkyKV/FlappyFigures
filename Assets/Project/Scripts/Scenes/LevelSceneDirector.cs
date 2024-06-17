@@ -256,6 +256,11 @@ namespace Project.Scenes
 			}
 
 			saveData.Records[figure.Type] = _score;
+			if (_score > saveData.BestResult)
+			{
+				saveData.BestResult = _score;
+			}
+			
 			ProjectContext.Instance.Service.SaveSystem.Save(saveData);
 		}
 
