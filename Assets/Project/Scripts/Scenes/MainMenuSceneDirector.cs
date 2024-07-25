@@ -41,6 +41,8 @@ namespace Project.Scenes
 		}
 
 		private void OnQuitButtonClicked()
-		{ }
+		{
+			Application.Quit();
+		}
 	}
 }

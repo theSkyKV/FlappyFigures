@@ -6,8 +6,8 @@
 	},
 	"Availabilities": {
 		"Square": true,
-		"Triangle": false,
-		"Circle": false
+		"Triangle": true,
+		"Circle": true
 	},
 	"AudioSettings": {
 		"MusicVolume": 0.5,
